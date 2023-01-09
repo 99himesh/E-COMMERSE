@@ -1,0 +1,10 @@
+.heading {
+  background-color: gray;
+  padding: 2px 0 50px;
+  text-align: center;
+  color: white;
+}
+.txt {
+  font-size: 90px;
+  margin-top: 50px;
+}
