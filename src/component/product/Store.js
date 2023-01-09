@@ -4,25 +4,22 @@ import ProductList, { productsArr } from "./storeList";
 const StorePage = () => {
   const itemList = productsArr.map((item, index) => {
     return (
-      <>
-        <div className="container  ">
-          <div className="row  ">
-            <div
-              className="col"
-              style={{ width: "100%", margin: "40px 0", textAlign: "center" }}
-            >
-              <h4 className="text-center">Album {index + 1} </h4>
-              <div  >
-              <img src={item.imageUrl}></img>
-              </div>
-              <p>$ {item.price}</p>
-              <Button>ADD TO CART</Button>
-            </div>
+      <div key={index} className="d-flex justify-content-center">
+        <div className="card my-5 " style={{width:'16rem'}}>
+          <div className="card-header  text-center" style={{fontSize:'20px' ,fontWeight:'bold'}}>
+                     Album {index + 1}
           </div>
+
+          <img src={item.imageUrl}></img>
+            <div className="card-body">
+               <span className="pt">$ {item.price}</span>
+               <Button className="float-end">ADD TO CART</Button>
+                <h4 className="text-center"> </h4>
+            </div>
         </div>
         {/* </div>
        </div> */}
-      </>
+      </div>
     );
   });
   return (
@@ -36,22 +33,13 @@ const StorePage = () => {
             fontWeight: "bold",
           }}
         >
-          {" "}
+          
           MUSIC
         </h2>
         <div className="row row-cols-2 ">
           {itemList}
-          <Button
-            style={{
-              background: "gray",
-              margin: "20px auto",
-              color: "#56CCF2",
-              border: "0",
-            }}
-          >
-            SEE MORE
-          </Button>
         </div>
+       
       </div>
     </>
   );
