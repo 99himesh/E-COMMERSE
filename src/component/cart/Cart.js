@@ -90,9 +90,11 @@ const Cart = (props) => {
         {cartList}
     
       </Modal.Body>
-      <div >
-        TOTAl PRICE
+      <div  className="p-5 text-center" >
+        <h4>
+        <span>TOTAl PRICE :- </span>
         <span>{totalAmount}</span>
+        </h4> 
       </div>
     </Modal>
            
