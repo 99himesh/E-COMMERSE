@@ -4,10 +4,13 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Heading from "./Heading";
 import Cart from "../cart/Cart";
-import { useState } from "react";
+import React,{useContext,useState} from "react"; 
+import CartContext from "../contextStorage/CartContext";
+import {NavLink} from "react-router-dom";
 
 const Header = () => {
-        const [ cartShow,setCartShow]=useState(true);
+  const ctx=useContext(CartContext);
+        const [ cartShow,setCartShow]=useState(false);
         const showCartHandlers=()=>setCartShow((prev)=>!prev);
         
       
@@ -16,22 +19,22 @@ const Header = () => {
       <Navbar
         bg="dark"
         variant="dark"
-        style={{ position: "fixed", width: "100%", margin: "0 0 10px 0",'z-index': '999' }}>
+        style={{ position: "fixed", width: "100%", margin: "0 0 10px 0",zIndex: '999' }}>
         <Container>
-          <Nav className="me-auto" style={{ margin: "0 auto" }}>
-            <Nav.Link href="#home" className="px-5">
+          <Nav className="me-auto " style={{ margin: "0 auto"  }}>
+            <NavLink to="/home" style={{textDecoration:'none',color:'white',padding:"10px 0 0 0"}}>
               HOME
-            </Nav.Link>
-            <Nav.Link href="#features" className="px-5">
+            </NavLink>
+            <NavLink to="/" style={{textDecoration:'none',color:'white',padding:"10px 30px 0 30px"}}>
               STORE
-            </Nav.Link>
-            <Nav.Link href="#pricing" className="px-5">
+            </NavLink>
+            <NavLink to="/about"  style={{textDecoration:'none',color:'white',padding:"10px 0 0 0"}}>
               ABOUT
-            </Nav.Link>
+            </NavLink >
           </Nav>
         </Container>
-        <Button variant="outline-primary" onClick={showCartHandlers}  >Cart</Button>
-       {cartShow &&  <Cart onHide={showCartHandlers} />}
+        <Button variant="outline-primary" onClick={showCartHandlers}  >Cart {ctx.item.length} </Button>
+       {cartShow &&   <Cart onHide={showCartHandlers} />}
       </Navbar>
       <Heading />
     </div>
