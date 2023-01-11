@@ -31,6 +31,10 @@ const Header = () => {
             <NavLink to="/about"  style={{textDecoration:'none',color:'white',padding:"10px 0 0 0"}}>
               ABOUT
             </NavLink >
+            <NavLink to="/contact"  style={{textDecoration:'none',color:'white',padding:"10px 0 0 30px"}}>
+              CONTACT
+            </NavLink >
+            
           </Nav>
         </Container>
         <Button variant="outline-primary" onClick={showCartHandlers}  >Cart {ctx.item.length} </Button>

@@ -12,7 +12,7 @@ const HomePage = () => {
               <td className="px-5">JUL16</td>
               <td className="px-5">DETROIT, MI</td>
               <td className="px-5">DTE ENERGY MUSIC THEATRE</td>
-              <td>
+           <td>
                 <Button className="my-2" style={{background:'#56CCF2' ,border:'0'}}>BUY TICKET</Button>
               </td>
             </tr>
