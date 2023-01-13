@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import { Route } from "react-router-dom";
+import React,{useContext} from "react";
 import "./App.css";
 import Header from "./component/header/Header";
 import Footer from "./component/footer/Footer";
@@ -9,10 +10,16 @@ import CartProvider from "./component/contextStorage/cartProvider";
 import AboutPage from "./component/About/about";
 import HomePage from "./component/Home/Home";
 import ContactUs from "./component/contact us/ContactUs";
+import LogInPage from "./component/Login page/login";
+import AuthContext from "./component/store/AuthContext";
 function App() {
+ const ctx=useContext(AuthContext)
+
+
+
 const submitHandler=async(data)=>{
 try{const response = await fetch(
-  "https://e-commerce-8a986-default-rtdb.firebaseio.com/data.json",
+  " ",
   {
     method: "POST",
     body: JSON.stringify(data),
@@ -28,7 +35,11 @@ catch{
 }
   return (
     <CartProvider>
+      
       <Header />
+       <Route exact path="/login">
+        <LogInPage /> 
+      </Route> 
       <Route exact path="/">
         <StorePage />
       </Route>
@@ -41,7 +52,7 @@ catch{
       <Route path="/contact">
         <ContactUs onAdd={submitHandler}  />
       </Route>
-      <Footer />
+      {ctx.isLoggedIn && <Footer />}
     </CartProvider>
   );
 }

@@ -7,12 +7,13 @@ import Cart from "../cart/Cart";
 import React,{useContext,useState} from "react"; 
 import CartContext from "../contextStorage/CartContext";
 import {NavLink} from "react-router-dom";
+import AuthContext from "../store/AuthContext";
 
 const Header = () => {
   const ctx=useContext(CartContext);
         const [ cartShow,setCartShow]=useState(false);
         const showCartHandlers=()=>setCartShow((prev)=>!prev);
-        
+          const Authctx=useContext(AuthContext);
       
   return (
     <div>
@@ -22,25 +23,39 @@ const Header = () => {
         style={{ position: "fixed", width: "100%", margin: "0 0 10px 0",zIndex: '999' }}>
         <Container>
           <Nav className="me-auto " style={{ margin: "0 auto"  }}>
-            <NavLink to="/home" style={{textDecoration:'none',color:'white',padding:"10px 0 0 0"}}>
+           {Authctx.isLoggedIn && <NavLink to="/home" style={{textDecoration:'none',color:'white',padding:"10px 0 0 0"}}>
               HOME
-            </NavLink>
-            <NavLink to="/" style={{textDecoration:'none',color:'white',padding:"10px 30px 0 30px"}}>
+            </NavLink>}
+            {Authctx.isLoggedIn && <NavLink to="/" style={{textDecoration:'none',color:'white',padding:"10px 30px 0 30px"}}>
               STORE
-            </NavLink>
-            <NavLink to="/about"  style={{textDecoration:'none',color:'white',padding:"10px 0 0 0"}}>
+            </NavLink>}
+            {Authctx.isLoggedIn && <NavLink to="/about"  style={{textDecoration:'none',color:'white',padding:"10px 0 0 0"}}>
               ABOUT
-            </NavLink >
-            <NavLink to="/contact"  style={{textDecoration:'none',color:'white',padding:"10px 0 0 30px"}}>
+            </NavLink >}
+            {Authctx.isLoggedIn && <NavLink to="/contact"  style={{textDecoration:'none',color:'white',padding:"10px 0 0 30px"}}>
               CONTACT
-            </NavLink >
+            </NavLink >}
+           { !Authctx.isLoggedIn && <NavLink to="/login"  style={{textDecoration:'none',color:'white',padding:"10px 0 0 30px"}}>
+              LOGIN
+            </NavLink >}
+            
+
+
             
           </Nav>
         </Container>
-        <Button variant="outline-primary" onClick={showCartHandlers}  >Cart {ctx.item.length} </Button>
+        {Authctx.isLoggedIn && <NavLink to="/login"  style={{textDecoration:'none',color:'white',}}>
+             <Button onClick={Authctx.logout} style={{marginRight:'20px'}}>logout</Button>
+            </NavLink >}
+
+        { Authctx.isLoggedIn && <Button  variant="outline-primary" onClick={showCartHandlers}  >Cart {ctx.item.length} </Button>}
+       
+      
        {cartShow &&   <Cart onHide={showCartHandlers} />}
+      
       </Navbar>
-      <Heading />
+     
+      {Authctx.isLoggedIn && <Heading />}
     </div>
   );
 };
