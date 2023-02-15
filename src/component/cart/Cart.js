@@ -1,26 +1,59 @@
 import { cartElements } from "./CartList";
-import React, { useState,useContext } from "react";
+import React, { useState,useContext, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { propTypes } from "react-bootstrap/esm/Image";
 import CartContext from "../contextStorage/CartContext";
+import AuthContext from "../store/AuthContext";
 
 const Cart = (props) => {
  const [deletes,setDelete]=useState(true);
  const deleteHandler=()=> setDelete(false);
   const ctx = useContext(CartContext);
+  const Auth=useContext(AuthContext)
+
   
-  
-  
-  
-  //  ctx.item.forEach((item)=>{
-  //   totalAmount=totalAmount+item.price;
-  //  })
-   const removeItemHandler=(id)=>{
+  const getDataForCart=async(id)=>{
+    
+    const response = await fetch(
+      `https://e-commerce-8a986-default-rtdb.firebaseio.com/himeshkas/${Auth.uId}/.json`,
+      {
+        method: "GET",
+        
+        header: {
+          "content-Type": "application/json",
+        },
+      } 
+    );
+    const trasnformDataResponse=await response.json();
+    const finalvalue=Object.values(trasnformDataResponse);
+       ctx.replace(finalvalue);
+}
+useEffect(()=>{
+  getDataForCart();
+})
+
+
+
+
+
+   const removeItemHandler=async(id)=>{
+    console.log(id);
     ctx.removeItem(id)
+   const datas= localStorage.getItem(id)
+   debugger 
+ console.log(datas)
+    const response = await fetch(
+      `https://e-commerce-8a986-default-rtdb.firebaseio.com/himeshkas/${Auth.uId}/${datas}.json`,
+      {
+        method: "DELETE",
+        
+        header: {
+          "content-Type": "application/json",
+        },
+      } 
+    );
   };
- 
- 
   let  totalAmount=0;
  
   const cartList = ctx.item.map((item, i) => {

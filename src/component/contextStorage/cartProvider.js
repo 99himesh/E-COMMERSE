@@ -24,6 +24,7 @@ const CartProvider = (props) => {
     //   updatedItemsList = items.concat(item);
     // }
     // setItems(updatedItemsList);
+    
   };
 
   const removeItemToCardHAndler = (id) => {
@@ -43,12 +44,17 @@ const CartProvider = (props) => {
 //     }
     setItems(updatedItemsList);
   };
+  const replacecart=(data)=>{
+    setItems(data);
+
+  }
 
   const cartContext = {
     item: items,
     totalAmount: 0,
     addItem: addItemToCartHandler,
     removeItem: removeItemToCardHAndler,
+    replace:replacecart
   };
 
   return (

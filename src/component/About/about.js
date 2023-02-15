@@ -1,9 +1,35 @@
-
+import React, { useContext, useEffect } from 'react';
+import CartContext from '../contextStorage/CartContext';
 import image from '../images/aboutimage.png'
+import AuthContext from '../store/AuthContext';
 const AboutPage = () => {
+  const ctx=useContext(CartContext);
+  const Auth=useContext(AuthContext)
+  
+  const getDataForCart=async(id)=>{
+    
+    const response = await fetch(
+      `https://e-commerce-8a986-default-rtdb.firebaseio.com/himeshkas/${Auth.uId}/.json`,
+      {
+        method: "GET",
+        
+        header: {
+          "content-Type": "application/json",
+        },
+      } 
+    );
+    const trasnformDataResponse=await response.json();
+    const finalvalue=Object.values(trasnformDataResponse);
+   
+       
+       ctx.replace(finalvalue);
+}
+useEffect(()=>{
+  getDataForCart();
+})
   return (
-    <div className="container">
-      <h2 style={{textAlign:'center' ,padding:'20px 0 0 0' ,fontSize:'30px ' ,fontWeight:'bolder'}}>About</h2>
+    <div className="container py-5">
+      <h2 style={{textAlign:'center' ,padding:'50px 0 0 0' ,fontSize:'30px ' ,fontWeight:'bolder'}}>About</h2>
       <div className="row" style={{color:'#777',fontSize:'16px'}}>
         <div className="col-3 offset-1">
          

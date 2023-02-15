@@ -5,6 +5,7 @@ import React from "react";
     totalAmount:0,
     addItem:(item)=>{},
     removeItem:(id)=>{},
+    replace:(data)=>{}
 });
 
 export default CartContext;
